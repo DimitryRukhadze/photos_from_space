@@ -110,14 +110,18 @@ def fetch_epic_earth(dir_name):
 
 if __name__ == '__main__':
 
-    fetch_spacex_last_launch('spaceX')
-    fetch_nasa_img('nasa')
-    fetch_epic_earth('epic_earth')
+    #fetch_spacex_last_launch('spaceX')
+    #fetch_nasa_img('nasa')
+    #fetch_epic_earth('epic_earth')
 
     bot_token = environ.get('TELEGRAM_BOT_TOKEN')
     bot = telegram.Bot(token=bot_token)
 
     test_text = 'это тестовое сообщение'
     test_chat_id = bot.get_updates()[-1].my_chat_member.chat.id
-    print(test_chat_id)
-    bot.send_message(text=test_text, chat_id=test_chat_id)
+    #print(test_chat_id)
+    #bot.send_message(text=test_text, chat_id=test_chat_id)
+
+    bot.send_document(chat_id=test_chat_id, document=open('spaceX/28787338307_7c0cfce99a_o.jpg','rb'))
+
+
