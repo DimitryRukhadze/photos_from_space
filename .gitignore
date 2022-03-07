@@ -1,0 +1,5 @@
+*.env
+.idea/
+epic_earth/
+nasa/
+spaceX/
