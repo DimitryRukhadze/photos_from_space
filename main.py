@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def image_download(img_url, save_to):
     response = requests.get(img_url)
     response.raise_for_status()
@@ -108,7 +109,8 @@ def fetch_epic_earth(dir_name):
 
         image_download(download_request.url, img_path)
 
-def sleep_time(time_measure='',delay_time=1):
+
+def sleep_time(time_measure='', delay_time=1):
     env_delay = environ.get('POSTING_DELAY')
     if not time_measure:
         return float(env_delay)
@@ -123,14 +125,13 @@ def sleep_time(time_measure='',delay_time=1):
         return env_delay
 
 
-
 if __name__ == '__main__':
     space_x_dir = 'spaceX'
-    #fetch_spacex_last_launch(space_x_dir)
+    fetch_spacex_last_launch(space_x_dir)
     nasa_dir = 'nasa'
-    #fetch_nasa_img(nasa_dir)
+    fetch_nasa_img(nasa_dir)
     epic_dir = 'epic_earth'
-    #fetch_epic_earth(epic_dir)
+    fetch_epic_earth(epic_dir)
 
     bot_token = environ.get('TELEGRAM_BOT_TOKEN')
     bot = telegram.Bot(token=bot_token)
@@ -138,7 +139,7 @@ if __name__ == '__main__':
     test_chat_id = bot.get_updates()[-1].my_chat_member.chat.id
 
     while True:
-        posting_delay = sleep_time(time_measure='second',delay_time=10)
+        posting_delay = sleep_time(time_measure='second', delay_time=10)
         dirs = listdir('.')
 
         for dir in dirs:
