@@ -135,10 +135,7 @@ if __name__ == '__main__':
     bot_token = environ.get('TELEGRAM_BOT_TOKEN')
     bot = telegram.Bot(token=bot_token)
 
-    test_text = 'это тестовое сообщение'
     test_chat_id = bot.get_updates()[-1].my_chat_member.chat.id
-    #print(test_chat_id)
-    #bot.send_message(text=test_text, chat_id=test_chat_id)
 
     while True:
         posting_delay = sleep_time(time_measure='second',delay_time=10)
