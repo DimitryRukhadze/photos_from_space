@@ -1,11 +1,12 @@
 import requests
 import datetime
 import telegram
+import time
 
 
 from pathlib import Path
 from urllib import parse
-from os import path, environ
+from os import path, environ, listdir
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -107,12 +108,29 @@ def fetch_epic_earth(dir_name):
 
         image_download(download_request.url, img_path)
 
+def sleep_time(time_measure='',delay_time=1):
+    env_delay = environ.get('POSTING_DELAY')
+    if not time_measure:
+        return float(env_delay)
+    elif time_measure == 'hour':
+        env_delay = (float(env_delay)/24)*delay_time
+        return env_delay
+    elif time_measure == 'minute':
+        env_delay = ((float(env_delay)/24)/60)*delay_time
+        return env_delay
+    elif time_measure == 'second':
+        env_delay = (((float(env_delay)/24)/60)/60)*delay_time
+        return env_delay
+
+
 
 if __name__ == '__main__':
-
-    #fetch_spacex_last_launch('spaceX')
-    #fetch_nasa_img('nasa')
-    #fetch_epic_earth('epic_earth')
+    space_x_dir = 'spaceX'
+    #fetch_spacex_last_launch(space_x_dir)
+    nasa_dir = 'nasa'
+    #fetch_nasa_img(nasa_dir)
+    epic_dir = 'epic_earth'
+    #fetch_epic_earth(epic_dir)
 
     bot_token = environ.get('TELEGRAM_BOT_TOKEN')
     bot = telegram.Bot(token=bot_token)
@@ -122,6 +140,17 @@ if __name__ == '__main__':
     #print(test_chat_id)
     #bot.send_message(text=test_text, chat_id=test_chat_id)
 
-    bot.send_document(chat_id=test_chat_id, document=open('spaceX/28787338307_7c0cfce99a_o.jpg','rb'))
+    while True:
+        posting_delay = sleep_time(time_measure='second',delay_time=10)
+        dirs = listdir('.')
 
-
+        for dir in dirs:
+            if dir == space_x_dir or dir == nasa_dir or dir == epic_dir:
+                files = listdir(dir)
+                file_paths = [f'{dir}/{file}' for file in files]
+                for path in file_paths:
+                    time.sleep(posting_delay)
+                    try:
+                        bot.send_document(chat_id=test_chat_id, document=open(path, 'rb'))
+                    except:
+                        continue
