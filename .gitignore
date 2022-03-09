@@ -1,7 +1,17 @@
 *.gitignore
 *.env
+<<<<<<< Updated upstream
 spaceX/
 nasa/
 epic_earth/
 __pycache__/
 .idea/
+=======
+.idea/
+__pycache__/
+epic_earth/
+nasa/
+spaceX/
+*.gitattributes
+*.gitignore
+>>>>>>> Stashed changes
