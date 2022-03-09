@@ -6,15 +6,9 @@ from os import environ, path
 from urllib import parse
 from pathlib import Path
 from dotenv import load_dotenv
+from img_download_tools import download_image
 
 load_dotenv()
-
-def image_download(img_url, save_to):
-    response = requests.get(img_url)
-    response.raise_for_status()
-
-    with open(save_to, 'wb') as file:
-        file.write(response.content)
 
 
 def get_img_extension(img_url):
@@ -54,7 +48,7 @@ def fetch_nasa_img(dir_name):
             Path(dir_name).mkdir(exist_ok=True)
             img_path = f'{dir_name}/{img_name}'
 
-            image_download(img_url, img_path)
+            download_image(img_url, img_path)
 
 
 def fetch_epic_earth(dir_name):
@@ -84,7 +78,7 @@ def fetch_epic_earth(dir_name):
         Path(dir_name).mkdir(exist_ok=True)
         img_path = f'{dir_name}/{img_name}'
 
-        image_download(download_request.url, img_path)
+        download_image(download_request.url, img_path)
 
 if __name__ == '__main__':
     nasa_dir = 'nasa'

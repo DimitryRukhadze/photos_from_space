@@ -2,14 +2,7 @@ import requests
 
 
 from pathlib import Path
-
-
-def image_download(img_url, save_to):
-    response = requests.get(img_url)
-    response.raise_for_status()
-
-    with open(save_to, 'wb') as file:
-        file.write(response.content)
+from img_download_tools import download_image
 
 
 def fetch_spacex_last_launch(dir_name):
@@ -29,7 +22,7 @@ def fetch_spacex_last_launch(dir_name):
         Path(dir_name).mkdir(exist_ok=True)
         img_path = f'{dir_name}/{img_name}'
 
-        image_download(img_url, img_path)
+        download_image(img_url, img_path)
 
 if __name__ == '__main__':
     space_x_dir = 'spaceX'

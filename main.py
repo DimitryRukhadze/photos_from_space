@@ -1,4 +1,3 @@
-import requests
 import telegram
 import time
 
@@ -9,14 +8,6 @@ from fetch_nasa import fetch_nasa_img, fetch_epic_earth
 from fetch_spacex import fetch_spacex_last_launch
 
 load_dotenv()
-
-
-def image_download(img_url, save_to):
-    response = requests.get(img_url)
-    response.raise_for_status()
-
-    with open(save_to, 'wb') as file:
-        file.write(response.content)
 
 
 def sleep_time(time_measure='', delay_time=1):
