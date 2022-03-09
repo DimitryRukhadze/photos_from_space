@@ -31,11 +31,8 @@ def fetch_nasa_img(dir_name):
         'end_date': '',
     }
 
-    try:
-        nasa_response = requests.get(nasa_url, params=nasa_params)
-        nasa_response.raise_for_status()
-    except:
-        print('NASA server is not available')
+    nasa_response = requests.get(nasa_url, params=nasa_params)
+    nasa_response.raise_for_status()
 
     nasa_response_info = nasa_response.json()
     img_number = 1
@@ -58,11 +55,8 @@ def fetch_epic_earth(dir_name):
         'api_key': f'{nasa_api}'
     }
 
-    try:
-        epic_response = requests.get(epic_url, params=epic_params)
-        epic_response.raise_for_status()
-    except:
-        print('Epic server is not available')
+    epic_response = requests.get(epic_url, params=epic_params)
+    epic_response.raise_for_status()
 
     epic_info = epic_response.json()
 
@@ -82,6 +76,13 @@ def fetch_epic_earth(dir_name):
 
 if __name__ == '__main__':
     nasa_dir = 'nasa'
-    fetch_nasa_img(nasa_dir)
+    try:
+        fetch_nasa_img(nasa_dir)
+    except requests.HTTPError:
+        print('Nasa server is not available.')
+
     epic_dir = 'epic_earth'
-    fetch_epic_earth(epic_dir)
+    try:
+        fetch_epic_earth(epic_dir)
+    except requests.HTTPError:
+        print("Epic server is not available.")
