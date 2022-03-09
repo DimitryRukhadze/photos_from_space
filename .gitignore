@@ -1,8 +1,0 @@
-*.gitignore
-*.env
-spaceX/
-nasa/
-epic_earth/
-__pycache__/
-.idea/
-*.gitattributes
