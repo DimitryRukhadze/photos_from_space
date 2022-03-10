@@ -8,7 +8,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from img_download_tools import download_image
 
-load_dotenv()
 
 
 def get_img_extension(img_url):
@@ -75,6 +74,9 @@ def fetch_epic_earth(dir_name):
         download_image(download_request.url, img_path)
 
 if __name__ == '__main__':
+
+    load_dotenv()
+
     nasa_dir = 'nasa'
     try:
         fetch_nasa_img(nasa_dir)

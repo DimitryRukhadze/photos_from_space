@@ -7,8 +7,6 @@ from dotenv import load_dotenv
 from fetch_nasa import fetch_nasa_img, fetch_epic_earth
 from fetch_spacex import fetch_spacex_last_launch
 
-load_dotenv()
-
 
 def sleep_time(time_measure='', delay_time=1):
     env_delay = environ.get('POSTING_DELAY')
@@ -26,10 +24,15 @@ def sleep_time(time_measure='', delay_time=1):
 
 
 if __name__ == '__main__':
+
+    load_dotenv()
+
     space_x_dir = 'spaceX'
     fetch_spacex_last_launch(space_x_dir)
+
     nasa_dir = 'nasa'
     fetch_nasa_img(nasa_dir)
+
     epic_dir = 'epic_earth'
     fetch_epic_earth(epic_dir)
 
@@ -47,8 +50,8 @@ if __name__ == '__main__':
                 files = listdir(dir)
                 file_paths = [f'{dir}/{file}' for file in files]
                 for path in file_paths:
-                    time.sleep(posting_delay)
                     try:
                         bot.send_document(chat_id=test_chat_id, document=open(path, 'rb'))
-                    except:
+                    except telegram.TelegramError:
                         continue
+                    time.sleep(posting_delay)

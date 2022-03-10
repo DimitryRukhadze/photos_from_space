@@ -1,8 +1,10 @@
 import requests
+import os
 
 
 from pathlib import Path
 from img_download_tools import download_image
+from urllib import parse
 
 
 def fetch_spacex_last_launch(dir_name):
@@ -14,9 +16,12 @@ def fetch_spacex_last_launch(dir_name):
     launch_img_links = launch_info['links']['flickr']['original']
 
     for link in launch_img_links:
-        img_name = link.split('/')[-1]
+        img_link_parsed = parse.urlsplit(link)
+        img_link_path = parse.unquote((img_link_parsed.path))
+        img_path_parsed = os.path.split(img_link_path)
+        print(img_path_parsed)
         Path(dir_name).mkdir(exist_ok=True)
-        img_path = f'{dir_name}/{img_name}'
+        img_path = f'{dir_name}/{img_path_parsed[1]}'
 
         download_image(link, img_path)
 
