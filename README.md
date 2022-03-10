@@ -4,7 +4,7 @@
 
 This module downloads images and photos from space using SpaceX and NASA open API. It is made for learning purposes only and is not for commercial use of any kind.
 
-Установка и подготовка к работе
+Установка, подготовка к работе и запуск
 ---
 Для использования модуля вам понадобиться получить ключ для использования NASA API. Затем, в одной папке с модулем, вам следует создать файл `.env`
 и разместить в нём запись следующего вида: 
@@ -16,6 +16,14 @@ POSTING_DELAY=86400
 
 Помимо этого вам понадобиться установить версии библиотек и сторонних модулей, которые использовались в проекте.
 Это можно сделать в терминале командой `pip install -r requirements.txt`.
+
+Модули main.py, fetch_nasa.py и fetch_spacex.py являются исполняемыми. Запускаются они следующим образом:
+
+```
+C:\forstudy\photos_from_space>python main.py
+C:\forstudy\photos_from_space>python fetch_spacex.py
+C:\forstudy\photos_from_space>python fetch_nasa.py
+```
 
 Описание работы модуля main.py
 ---
