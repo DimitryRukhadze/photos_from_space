@@ -8,7 +8,7 @@ from fetch_nasa import fetch_nasa_images, fetch_epic_earth_images
 from fetch_spacex import fetch_spacex_last_launch
 
 
-def sleep_time(time_measure='', delay_time=1):
+def count_sleep_time(time_measure='', delay_time=1):
     env_delay = environ.get('POSTING_DELAY')
     if not time_measure:
         return float(env_delay)
@@ -42,7 +42,7 @@ if __name__ == '__main__':
     test_chat_id = bot.get_updates()[-1].my_chat_member.chat.id
 
     while True:
-        posting_delay = sleep_time(time_measure='second', delay_time=10)
+        posting_delay = count_sleep_time(time_measure='second', delay_time=10)
         dirs = listdir('.')
 
         for directory in dirs:
