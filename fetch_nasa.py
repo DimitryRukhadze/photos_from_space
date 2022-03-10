@@ -32,8 +32,8 @@ def fetch_nasa_images(dir_name, nasa_key):
     nasa_response.raise_for_status()
 
     nasa_response_info = nasa_response.json()
-    img_number = 1
-    for img in nasa_response_info:
+
+    for img_number, img in enumerate(nasa_response_info):
         img_url = img['url']
         img_extension = get_img_extension(img_url)
         if img_extension:
