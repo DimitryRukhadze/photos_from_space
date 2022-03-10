@@ -39,7 +39,6 @@ def fetch_nasa_images(dir_name, nasa_key):
         if img_extension:
             img_name = f'nasa_{img_number}{img_extension}'
             img_number += 1
-            Path(dir_name).mkdir(exist_ok=True)
             img_path = f'{dir_name}/{img_name}'
 
             download_image(img_url, img_path)
@@ -65,7 +64,6 @@ def fetch_epic_earth_images(dir_name, nasa_key):
         img_link = f'{download_img_url}/{date_url}/png/{img_name}'
         download_request = requests.get(img_link, params=epic_params)
 
-        Path(dir_name).mkdir(exist_ok=True)
         img_path = f'{dir_name}/{img_name}'
 
         download_image(download_request.url, img_path)
@@ -77,12 +75,14 @@ if __name__ == '__main__':
 
     nasa_api_key = environ.get('NASA_API')
     nasa_dir = 'nasa'
+    Path(nasa_dir).mkdir(exist_ok=True)
     try:
         fetch_nasa_images(nasa_dir, nasa_api_key)
     except requests.HTTPError:
         print('Nasa server is not available.')
 
     epic_dir = 'epic_earth'
+    Path(epic_dir).mkdir(exist_ok=True)
     try:
         fetch_epic_earth_images(epic_dir, nasa_api_key)
     except requests.HTTPError:
