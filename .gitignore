@@ -3,4 +3,5 @@ __pycache__/
 epic_earth/
 nasa/
 spaceX/
+venv/
 *.env
