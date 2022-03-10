@@ -8,33 +8,34 @@ from fetch_nasa import fetch_nasa_images, fetch_epic_earth_images
 from fetch_spacex import fetch_spacex_last_launch
 
 
-def count_sleep_time(time_measure='', delay_time=1):
-    env_delay = environ.get('POSTING_DELAY')
+def count_sleep_time(default_delay, time_measure='', delay_time=1):
     if not time_measure:
-        return float(env_delay)
+        return float(default_delay)
     elif time_measure == 'hour':
-        env_delay = (float(env_delay)/24)*delay_time
-        return env_delay
+        user_delay = (float(default_delay)/24)*delay_time
+        return user_delay
     elif time_measure == 'minute':
-        env_delay = ((float(env_delay)/24)/60)*delay_time
-        return env_delay
+        user_delay = ((float(default_delay)/24)/60)*delay_time
+        return user_delay
     elif time_measure == 'second':
-        env_delay = (((float(env_delay)/24)/60)/60)*delay_time
-        return env_delay
+        user_delay = (((float(default_delay)/24)/60)/60)*delay_time
+        return user_delay
 
 
 if __name__ == '__main__':
 
     load_dotenv()
+    env_delay = environ.get('POSTING_DELAY')
+    nasa_api_key = environ.get('NASA_API')
 
     space_x_dir = 'spaceX'
     fetch_spacex_last_launch(space_x_dir)
 
     nasa_dir = 'nasa'
-    fetch_nasa_images(nasa_dir)
+    fetch_nasa_images(nasa_dir, nasa_api_key)
 
     epic_dir = 'epic_earth'
-    fetch_epic_earth_images(epic_dir)
+    fetch_epic_earth_images(epic_dir, nasa_api_key)
 
     bot_token = environ.get('TELEGRAM_BOT_TOKEN')
     bot = telegram.Bot(token=bot_token)
@@ -42,7 +43,7 @@ if __name__ == '__main__':
     test_chat_id = bot.get_updates()[-1].my_chat_member.chat.id
 
     while True:
-        posting_delay = count_sleep_time(time_measure='second', delay_time=10)
+        posting_delay = count_sleep_time(env_delay, time_measure='second', delay_time=10)
         dirs = listdir('.')
 
         for directory in dirs:
