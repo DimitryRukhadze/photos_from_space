@@ -24,8 +24,8 @@ def fetch_nasa_images(dir_name):
     starting_date = today - datetime.timedelta(days=days_range)
 
     nasa_params = {
-        'api_key': f'{nasa_api_key}',
-        'start_date': f'{starting_date}',
+        'api_key': nasa_api_key,
+        'start_date': starting_date,
         'end_date': '',
     }
 
@@ -50,7 +50,7 @@ def fetch_epic_earth_images(dir_name):
     epic_url = 'https://api.nasa.gov/EPIC/api/natural'
     nasa_api = environ.get('NASA_API')
     epic_params = {
-        'api_key': f'{nasa_api}'
+        'api_key': nasa_api,
     }
 
     epic_response = requests.get(epic_url, params=epic_params)
