@@ -4,7 +4,7 @@ import time
 
 from os import environ, listdir
 from dotenv import load_dotenv
-from fetch_nasa import fetch_nasa_img, fetch_epic_earth
+from fetch_nasa import fetch_nasa_images, fetch_epic_earth_images
 from fetch_spacex import fetch_spacex_last_launch
 
 
@@ -31,10 +31,10 @@ if __name__ == '__main__':
     fetch_spacex_last_launch(space_x_dir)
 
     nasa_dir = 'nasa'
-    fetch_nasa_img(nasa_dir)
+    fetch_nasa_images(nasa_dir)
 
     epic_dir = 'epic_earth'
-    fetch_epic_earth(epic_dir)
+    fetch_epic_earth_images(epic_dir)
 
     bot_token = environ.get('TELEGRAM_BOT_TOKEN')
     bot = telegram.Bot(token=bot_token)
@@ -45,9 +45,9 @@ if __name__ == '__main__':
         posting_delay = sleep_time(time_measure='second', delay_time=10)
         dirs = listdir('.')
 
-        for dir in dirs:
-            if dir == space_x_dir or dir == nasa_dir or dir == epic_dir:
-                files = listdir(dir)
+        for directory in dirs:
+            if directory == space_x_dir or dir == nasa_dir or dir == epic_dir:
+                files = listdir(directory)
                 file_paths = [f'{dir}/{file}' for file in files]
                 for path in file_paths:
                     try:

@@ -17,13 +17,14 @@ def fetch_spacex_last_launch(dir_name):
 
     for link in launch_img_links:
         img_link_parsed = parse.urlsplit(link)
-        img_link_path = parse.unquote((img_link_parsed.path))
+        img_link_path = parse.unquote(img_link_parsed.path)
         img_path_parsed = os.path.split(img_link_path)
         print(img_path_parsed)
         Path(dir_name).mkdir(exist_ok=True)
         img_path = f'{dir_name}/{img_path_parsed[1]}'
 
         download_image(link, img_path)
+
 
 if __name__ == '__main__':
     space_x_dir = 'spaceX'

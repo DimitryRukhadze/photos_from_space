@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 from img_download_tools import download_image
 
 
-
 def get_img_extension(img_url):
     url_components = parse.urlsplit(img_url)
     img_path = parse.unquote(url_components.path)
@@ -17,7 +16,7 @@ def get_img_extension(img_url):
     return img_extension
 
 
-def fetch_nasa_img(dir_name):
+def fetch_nasa_images(dir_name):
     nasa_url = 'https://api.nasa.gov/planetary/apod'
     nasa_api_key = environ.get('NASA_API')
     days_range = 31
@@ -47,7 +46,7 @@ def fetch_nasa_img(dir_name):
             download_image(img_url, img_path)
 
 
-def fetch_epic_earth(dir_name):
+def fetch_epic_earth_images(dir_name):
     epic_url = 'https://api.nasa.gov/EPIC/api/natural'
     nasa_api = environ.get('NASA_API')
     epic_params = {
@@ -73,18 +72,19 @@ def fetch_epic_earth(dir_name):
 
         download_image(download_request.url, img_path)
 
+
 if __name__ == '__main__':
 
     load_dotenv()
 
     nasa_dir = 'nasa'
     try:
-        fetch_nasa_img(nasa_dir)
+        fetch_nasa_images(nasa_dir)
     except requests.HTTPError:
         print('Nasa server is not available.')
 
     epic_dir = 'epic_earth'
     try:
-        fetch_epic_earth(epic_dir)
+        fetch_epic_earth_images(epic_dir)
     except requests.HTTPError:
         print("Epic server is not available.")
