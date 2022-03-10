@@ -56,7 +56,8 @@ if __name__ == '__main__':
                 file_paths = [f'{directory}/{name}' for name in file_names]
                 for filepath in file_paths:
                     try:
-                        bot.send_document(chat_id=test_chat_id, document=open(filepath, 'rb'))
+                        with open(filepath,'rb') as document:
+                            bot.send_document(chat_id=test_chat_id, document=document)
                     except telegram.TelegramError:
                         continue
                     time.sleep(posting_delay)
