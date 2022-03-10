@@ -16,15 +16,14 @@ def get_img_extension(img_url):
     return img_extension
 
 
-def fetch_nasa_images(dir_name):
+def fetch_nasa_images(dir_name, nasa_key):
     nasa_url = 'https://api.nasa.gov/planetary/apod'
-    nasa_api_key = environ.get('NASA_API')
     days_range = 31
     today = datetime.date.today()
     starting_date = today - datetime.timedelta(days=days_range)
 
     nasa_params = {
-        'api_key': nasa_api_key,
+        'api_key': nasa_key,
         'start_date': starting_date,
         'end_date': '',
     }
@@ -46,11 +45,10 @@ def fetch_nasa_images(dir_name):
             download_image(img_url, img_path)
 
 
-def fetch_epic_earth_images(dir_name):
+def fetch_epic_earth_images(dir_name, nasa_key):
     epic_url = 'https://api.nasa.gov/EPIC/api/natural'
-    nasa_api = environ.get('NASA_API')
     epic_params = {
-        'api_key': nasa_api,
+        'api_key': nasa_key,
     }
 
     epic_response = requests.get(epic_url, params=epic_params)
@@ -77,14 +75,15 @@ if __name__ == '__main__':
 
     load_dotenv()
 
+    nasa_api_key = environ.get('NASA_API')
     nasa_dir = 'nasa'
     try:
-        fetch_nasa_images(nasa_dir)
+        fetch_nasa_images(nasa_dir, nasa_api_key)
     except requests.HTTPError:
         print('Nasa server is not available.')
 
     epic_dir = 'epic_earth'
     try:
-        fetch_epic_earth_images(epic_dir)
+        fetch_epic_earth_images(epic_dir, nasa_api_key)
     except requests.HTTPError:
         print("Epic server is not available.")
