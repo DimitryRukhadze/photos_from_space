@@ -51,7 +51,7 @@ if __name__ == '__main__':
         dirs = listdir('.')
 
         for directory in dirs:
-            if directory == space_x_dir or directory == nasa_dir or directory == epic_dir:
+            if directory in [space_x_dir, nasa_dir, epic_dir]:
                 file_names = listdir(directory)
                 file_paths = [f'{directory}/{name}' for name in file_names]
                 for filepath in file_paths:
