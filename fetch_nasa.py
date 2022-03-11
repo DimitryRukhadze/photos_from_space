@@ -33,12 +33,11 @@ def fetch_nasa_images(dir_name, nasa_key):
 
     nasa_response_info = nasa_response.json()
 
-    for img_number, img in enumerate(nasa_response_info):
+    for img_number, img in enumerate(nasa_response_info,start=1):
         img_url = img['url']
         img_extension = get_img_extension(img_url)
         if img_extension:
             img_name = f'nasa_{img_number}{img_extension}'
-            img_number += 1
             img_path = f'{dir_name}/{img_name}'
 
             download_image(img_url, img_path)
